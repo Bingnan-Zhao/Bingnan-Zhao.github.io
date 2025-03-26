@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const decreaseBtn = document.getElementById("decreaseBtn");
   const increaseBtn = document.getElementById("increaseBtn");
