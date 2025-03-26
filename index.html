@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Attendance Form</title>
+  <script defer src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">Room Attendance Form</h1>
+
+    <label class="block mb-2 font-medium">Select Start Time:</label>
+    <input type="datetime-local" id="startTime" class="w-full p-2 mb-4 border rounded" />
+
+    <label class="block mb-2 font-medium">Select End Time:</label>
+    <input type="datetime-local" id="endTime" class="w-full p-2 mb-4 border rounded" />
+
+    <label class="block mb-2 font-medium">Select Number of People:</label>
+    <div class="flex items-center justify-between mb-6">
+      <button id="decreaseBtn" class="bg-gray-200 px-4 py-2 rounded">-</button>
+      <span id="peopleCount" class="text-xl font-semibold">1</span>
+      <button id="increaseBtn" class="bg-gray-200 px-4 py-2 rounded">+</button>
+    </div>
+
+    <button id="submitBtn" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Submit</button>
+    <p id="confirmation" class="text-green-600 mt-4 hidden text-center">Submitted successfully!</p>
+  </div>
+</body>
+</html>
