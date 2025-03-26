@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const peopleCount = document.getElementById("peopleCount");
   const submitBtn = document.getElementById("submitBtn");
   const confirmation = document.getElementById("confirmation");
+  const startInput = document.getElementById("startTime");
+  const endInput = document.getElementById("endTime");
 
   let count = 1;
 
@@ -22,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   submitBtn.addEventListener("click", async () => {
-    const start = document.getElementById("startTime").value;
-    const end = document.getElementById("endTime").value;
+    const start = startInput.value;
+    const end = endInput.value;
 
     if (!start || !end) {
       alert("Please select both start and end times.");
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbxJDwMi6_izKQWATK2_me9MhWOXaaLoH4FApimHFJK1Lskm8cpeHFi1v7tQCezcuhic/exec", {
+      await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
         mode: "no-cors",
         headers: {
@@ -46,12 +48,27 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(data)
       });
 
+      // 显示提交成功提示
       confirmation.classList.remove("hidden");
-      setTimeout(() => confirmation.classList.add("hidden"), 3000);
+
+      // 禁用按钮和输入
+      submitBtn.disabled = true;
+      decreaseBtn.disabled = true;
+      increaseBtn.disabled = true;
+      startInput.disabled = true;
+      endInput.disabled = true;
+
+      // 变灰提示用户不可再次提交
+      submitBtn.classList.add("bg-gray-400", "hover:bg-gray-400");
+      submitBtn.classList.remove("bg-green-500", "hover:bg-green-600");
+
     } catch (error) {
       alert("Submission failed. Please try again.");
       console.error(error);
     }
+  });
+});
+
   });
 });
 
