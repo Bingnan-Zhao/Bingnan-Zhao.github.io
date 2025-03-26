@@ -21,26 +21,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  submitBtn.addEventListener("click", () => {
+  submitBtn.addEventListener("click", async () => {
     const start = document.getElementById("startTime").value;
     const end = document.getElementById("endTime").value;
 
     if (!start || !end) {
-      alert("Please select both start and end time.");
+      alert("Please select both start and end times.");
       return;
     }
 
-    const csvContent = `Start Time,End Time,People Count\n${start},${end},${count}`;
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
+    const data = {
+      start,
+      end,
+      people: count
+    };
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `attendance_${Date.now()}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      const response = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-    confirmation.classList.remove("hidden");
-    setTimeout(() => confirmation.classList.add("hidden"), 3000);
+      confirmation.classList.remove("hidden");
+      setTimeout(() => confirmation.classList.add("hidden"), 3000);
+    } catch (error) {
+      alert("Submission failed. Please try again.");
+      console.error(error);
+    }
   });
 });
+
